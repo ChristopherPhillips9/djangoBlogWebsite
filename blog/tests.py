@@ -43,9 +43,8 @@ class BlogTests(TestCase):
 
     def test_post_detailview(self):
         response = self.client.get(reverse("post_detail", kwargs={"pk": self.post.pk}))
-        no_response = self.client.get("/post/100000")
+        no_response = self.client.get("/post/100000/")
         self.assertEqual(response.status_code, 200)
-        #This fails because it is passing 301 "moved permanently"
         self.assertEqual(no_response.status_code, 404)
         self.assertContains(response, "A good title")
         self.assertTemplateUsed(response, "post_detail.html")
